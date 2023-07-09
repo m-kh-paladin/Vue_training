@@ -1,9 +1,11 @@
 var app = new Vue({
     el: "#app",
     data: {
-        product : "Soocks",
+        product : "Socks",
         description : "this soocks is one the best in the world",
+        image: './assets/image_1.jpg',
         link: "https://www.google.com/",
-        inSale : true
+        inventory : 100,
+        inSale : false   // CHALLENGE PROPERTY
     }
 })

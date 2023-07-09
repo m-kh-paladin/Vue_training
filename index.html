@@ -3,17 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
     <div id="app">
-      <h1>{{ description }}</h1>  <!--  FIRST CHALLENGE -->
-      <a v-bind:href="link">link</a> <!--  SECOND CHALLENGE -->
-      <br>
-      <br>
-      <span v-if="inSale">On Sale!</span> <!--  THIRD CHALLENGE -->
+      <div class="product">
+        <div class="product_image">
+          <a v-bind:title="product" v-bind:href="link">
+            <img v-bind:src="image" v-bind:alt="product" />
+          </a>
+        </div>
+        <div class="product_info">
+          <a v-bind:title="product" v-bind:href="link">
+            <h1>{{ product }}</h1>
+          </a>
+          <p>{{ description }}</p>
+          <p v-if="inventory  > 10">On Sale!</p>
+          <p v-else-if="inventory <= 10 && inventory > 0">Almist sold out!</p>
+          <p v-else>Out of stock</p>
+          <span v-if="inSale">on Sale !</span>  <!-- THIS IS JUST FOR CHALLENGE  -->
+        </div>
+      </div>
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
     <script src="main.js"></script>
   </body>
