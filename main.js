@@ -1,4 +1,4 @@
-Vue.component("ss", {
+Vue.component("moreDetail", {
     props: {
         productDetails: {
             type: Array,
@@ -33,7 +33,7 @@ Vue.component("product", {
       <p v-else-if="inStock">Almist sold out!</p>
       <p  :class="[isActive ? activeClass : '']" v-else>Out of stock</p>
       <p>{{sale}}</p>
-      <ss :productDetails="productDetails"></ss>
+      <moreDetail :productDetails="productDetails"></moreDetail>
       <span class="colors" >chosse the color :</span>
       <div class="color_box">
         <button
