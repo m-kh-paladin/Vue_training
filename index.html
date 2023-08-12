@@ -8,7 +8,8 @@
   </head>
   <body>
     <div id="app">
-      <product></product>
+      <span>count : {{cart}}</span>
+      <product :premium="premium" @decCartUpdate="cartDec" @incCartUpdate="cartInc" ></product>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
     <script src="main.js"></script>

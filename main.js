@@ -1,12 +1,12 @@
 Vue.component("moreDetail", {
-    props: {
-        productDetails: {
-            type: Array,
-            require: true,
-        }
-    },
-    template:
-        `
+  props: {
+    productDetails: {
+      type: Array,
+      require: true,
+    }
+  },
+  template:
+    `
     <ul>
       <li v-for="detail in productDetails" >{{detail}}</li>
     </ul>
@@ -14,7 +14,13 @@ Vue.component("moreDetail", {
 })
 
 Vue.component("product", {
-    template: `  
+  props: {
+    premium: {
+      type: Boolean,
+      required: true
+    }
+  },
+  template: `  
         <div class="product">
     <div class="product_image">
       <a v-bind:title="product" v-bind:href="link">
@@ -24,6 +30,7 @@ Vue.component("product", {
     <div class="product_info">
       <a v-bind:title="product" v-bind:href="link">
         <h1>{{ title }}</h1>
+        <p>Shipping: {{ shipping }}</p>
       </a>
       <p>{{ description }}</p>
       <ul>
@@ -43,7 +50,7 @@ Vue.component("product", {
           @click="changeColor(index)"
         ></button>
       </div>
-      <button :disabled="!inStock || card == 0 " v-on:click="decCard">
+      <button :disabled="!inStock" v-on:click="decCart">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -56,7 +63,7 @@ Vue.component("product", {
           />
         </svg>
       </button>
-      <button :disabled="!inStock" v-on:click="incCard">
+      <button :disabled="!inStock" v-on:click="incCart">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -69,72 +76,88 @@ Vue.component("product", {
           />
         </svg>
       </button>
-
-      <span>count : {{card}}</span>
     </div>
   </div>`,
-    data() {
-        return {
-            brand: "brandName",
-            product: "Socks",
-            productDetails: ["Quality : best", "Material : cotton", "Size : small"],
-            description: "this soocks is one the best in the world",
-            link: "https://www.google.com/",
-            selectedVariant: 0,
-            sizes: ["small", "medium", "big"],
-            isActive: true,
-            activeClass: "active",
-            card: 0,
-            variants: [
-                {
-                    variantNum: "1",
-                    variantsColor: 'green',
-                    variantImage: "./assets/image_1.jpg",
-                    variantQuantity: 10,
-                    onSale: true,
+  data() {
+    return {
+      brand: "brandName",
+      product: "Socks",
+      productDetails: ["Quality : best", "Material : cotton", "Size : small"],
+      description: "this soocks is one the best in the world",
+      link: "https://www.google.com/",
+      selectedVariant: 0,
+      sizes: ["small", "medium", "big"],
+      isActive: true,
+      activeClass: "active",
+      variants: [
+        {
+          variantNum: "1",
+          variantsColor: 'green',
+          variantImage: "./assets/image_1.jpg",
+          variantQuantity: 10,
+          onSale: true,
 
-                }, {
-                    variantNum: "2",
-                    variantsColor: 'blue',
-                    variantImage: "./assets/image_2.jpg",
-                    variantQuantity: 0,
-                    onSale: false,
-                },
-            ],
-        }
-    },
-    methods: {
-        decCard() {
-            this.card -= 1;
+        }, {
+          variantNum: "2",
+          variantsColor: 'blue',
+          variantImage: "./assets/image_2.jpg",
+          variantQuantity: 0,
+          onSale: false,
         },
-        incCard() {
-            this.card += 1;
-        },
-        changeColor(index) {
-            this.selectedVariant = index
-        }
-    },
-    computed: {
-        title() {
-            return this.brand + " " + this.product;
-        },
-        image() {
-            return this.variants[this.selectedVariant].variantImage
-        },
-        inStock() {
-            return this.variants[this.selectedVariant].variantQuantity
-        },
-        sale() {
-            if (this.variants[this.selectedVariant].onSale) {
-                return this.brand + " " + this.product + " are available"
-            }
-            return this.brand + " " + this.product + " are not available"
-        }
+      ],
     }
+  },
+  methods: {
+    incCart() {
+      this.$emit('incCartUpdate')
+
+    },
+    decCart() {
+      this.$emit('decCartUpdate')
+    },
+    changeColor(index) {
+      this.selectedVariant = index
+    }
+  },
+  computed: {
+    title() {
+      return this.brand + " " + this.product;
+    },
+    image() {
+      return this.variants[this.selectedVariant].variantImage
+    },
+    inStock() {
+      return this.variants[this.selectedVariant].variantQuantity
+    },
+    sale() {
+      if (this.variants[this.selectedVariant].onSale) {
+        return this.brand + " " + this.product + " are available"
+      }
+      return this.brand + " " + this.product + " are not available"
+    },
+    shipping() {
+      if (this.premium) {
+        return "Free"
+      } else {
+        return 2.99
+      }
+    }
+  }
 
 })
 
 var app = new Vue({
-    el: "#app",
-
+  el: "#app",
+  data: {
+    premium: true,
+    cart: 0,
+  },
+  methods: {
+    cartInc() {
+      this.cart += 1
+    },
+    cartDec() {
+      this.cart -= 1
+    }
+  }
 })
