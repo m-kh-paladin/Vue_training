@@ -155,7 +155,7 @@ Vue.component('details_tabs', {
       </ul>
 
       <div v-show="selectedTab === 'Shipping'">
-        <p>{{ shipping }}</p>
+        <p> shipping : {{ shipping }}</p>
       </div>
 
       <div v-show="selectedTab === 'Details'">
