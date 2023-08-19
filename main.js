@@ -1,7 +1,7 @@
 var eventBus = new Vue()
 Vue.component("moreDetail", {
   props: {
-    productDetails: {
+    details: {
       type: Array,
       require: true,
     }
@@ -9,7 +9,7 @@ Vue.component("moreDetail", {
   template:
     `
     <ul>
-      <li v-for="detail in productDetails" >{{detail}}</li>
+      <li v-for="detail in details" >{{detail}}</li>
     </ul>
         `,
 })
@@ -132,6 +132,47 @@ Vue.component("product_tabs", {
   }
 })
 
+Vue.component('details_tabs', {
+  props: {
+    shipping: {
+      required: true
+    },
+    details: {
+      type: Array,
+      required: true
+    }
+  },
+  template: `
+    <div class="details_tab" >
+    
+      <ul>
+        <span class=" tab_links tabs" 
+              :class="{ activeTab: selectedTab === tab }"
+              v-for="(tab, index) in tabs"
+              @click="selectedTab = tab"
+              :key="tab"
+        >{{ tab }}</span>
+      </ul>
+
+      <div v-show="selectedTab === 'Shipping'">
+        <p>{{ shipping }}</p>
+      </div>
+
+      <div v-show="selectedTab === 'Details'">
+      <moreDetail :details="details"></moreDetail>
+      </div>
+  
+    </div>
+  `,
+  data() {
+    return {
+      tabs: ['Shipping', 'Details'],
+      selectedTab: 'Shipping'
+    }
+  }
+})
+
+
 Vue.component("product", {
   props: {
     premium: {
@@ -150,8 +191,8 @@ Vue.component("product", {
     <div class="product_info">
       <a v-bind:title="product" v-bind:href="link">
         <h1>{{ title }}</h1>
-        <p>Shipping: {{ shipping }}</p>
-      </a>
+        </a>
+        <details_tabs :shipping="shipping" :details="details"></details_tabs>
       <p>{{ description }}</p>
       <ul>
         <li v-for="size in sizes" :key="size.sizeNumber">{{size}}</li>
@@ -160,7 +201,6 @@ Vue.component("product", {
       <p v-else-if="inStock">Almist sold out!</p>
       <p :class="[isActive ? activeClass : '']" v-else>Out of stock</p>
       <p>{{sale}}</p>
-      <moreDetail :productDetails="productDetails"></moreDetail>
       <div class="tools">
         <span class="colors">chosse the color :</span>
         <div class="color_box">
@@ -209,7 +249,7 @@ Vue.component("product", {
     return {
       brand: "brandName",
       product: "Socks",
-      productDetails: ["Quality : best", "Material : cotton", "Size : small"],
+      details: ["Quality : best", "Material : cotton", "Size : small"],
       description: "this soocks is one the best in the world",
       link: "https://www.google.com/",
       selectedVariant: 0,

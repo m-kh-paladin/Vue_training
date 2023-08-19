@@ -147,3 +147,7 @@ img {
 .activeTab {
   color: red;
 }
+
+.details_tab ul {
+  padding: 16px 0;
+}
