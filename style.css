@@ -29,14 +29,19 @@ img {
   text-decoration: line-through;
 }
 .product {
+  width: 800px;
+  margin: 0 auto;
+  max-width: 100%;
+}
+.first_part_product {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  width: 40%;
+  width: 100%;
   margin: 30px auto;
 }
 .color_box {
-  display: flex;
+  display: inline-flex;
   gap: 10px;
   margin: 10px 0;
 }
@@ -49,4 +54,96 @@ img {
 .colors {
   padding: 20px 0;
   display: inline-block;
+}
+
+.count {
+  text-align: center;
+  padding-top: 22px;
+}
+.count span {
+  color: red;
+  font-size: 1.5em;
+}
+.tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review-form {
+  width: 100%;
+  margin: 0 auto;
+  border-radius: 5px;
+  box-shadow: #c1c2c3 0px 1px 6px 0px;
+  padding: 20px;
+  margin-top: 20px;
+}
+#name,
+#review {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #f2f0f1;
+  margin-bottom: 10px;
+  border: unset;
+}
+.review-form button {
+  padding: 8px 0;
+  font-family: "iransans-bold";
+  border: 2px solid #f8b85e;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  margin: 8px auto;
+  border-radius: 7px;
+  width: 100%;
+  transition: 0.3s all ease-in-out;
+}
+
+.review-form button:hover {
+  background-color: #ddd;
+  transition: 0.3s all ease-in-out;
+}
+
+.review_parent {
+  padding: 20px;
+}
+
+.review_parent li {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.review_parent li p {
+  border: 1px solid #ccc;
+  width: 100%;
+  text-align: center;
+  padding: 6px;
+}
+
+.validation p {
+  color: red;
+}
+
+.validation li {
+  padding: 5px 0;
+  color: red;
+}
+.recommend_part input {
+  margin: 10px 0;
+}
+
+.tab_links > div {
+  padding: 20px 0;
+}
+
+.tab_links {
+  padding-right: 20px;
+  cursor: pointer;
+}
+
+.activeTab {
+  color: red;
 }
